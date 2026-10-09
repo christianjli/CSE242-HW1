@@ -311,6 +311,6 @@ if __name__ == '__main__':
     # print(gaussian_mle())
     # print(gaussian_map())
     # plot_scatter()
-    pca_visual()
+    # pca_visual()
     # pca_outputs()
     pass
