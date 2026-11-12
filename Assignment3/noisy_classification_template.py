@@ -118,21 +118,21 @@ def run_comparison(repeats, seed, neighbors, output_path):
     for trial in range(1, repeats + 1):
         # corrupt
         noisy_labels = corrupt_training_labels(train_labels, rng)
-        accuracy = train_and_evaluate(train_features, noisy_labels, test_features, test_labels)
+        baseline_accuracy = train_and_evaluate(train_features, noisy_labels, test_features, test_labels)
         # repair sees training features + noisy labels
         repaired_labels = repair_labels_knn(train_features, noisy_labels, neighbors)
         knn_accuracy = train_and_evaluate(train_features, repaired_labels, test_features, test_labels)
-        rows.append((trial, accuracy, knn_accuracy))
+        rows.append((trial, baseline_accuracy, knn_accuracy))
     
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok = True)
     with open(output_path, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(("trial", "accuracy", "knn_accuracy"))
+        writer.writerow(("trial", "baseline_accuracy", "knn_accuracy"))
         writer.writerows(rows)
     mean = float(np.mean([r[1] for r in rows]))
     knn_mean = float(np.mean([r[2] for r in rows]))
-    print(f"base accuracy with noisy labels: {mean}")
+    print(f"baseline accuracy with noisy labels: {mean}")
     print(f"knn repaired mean accuracy: {knn_mean}")
     print(f"saved results to {output_path}")
     return rows

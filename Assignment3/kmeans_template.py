@@ -141,7 +141,7 @@ def run_experiments(output_dir, seed=0, max_iterations=100):
     # of extra centroids, so it splits real groups into smaller clusters
     # so while a larger k fits the data more tightly, there needs to be a 
     # balance and analysis as to what value of k fits the data most effectively
-    # low k merges distince groups and high k fragments them
+    # low k merges distinct groups and high k fragments them
 
 
 def main():
